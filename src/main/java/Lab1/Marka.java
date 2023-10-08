@@ -22,7 +22,7 @@ public class Marka implements Comparable<Marka> {
 
     @Override
     public int compareTo(Marka o) {
-        if(this.equals(o) && this.hashCode() == o.hashCode()) {
+        if(this.equals(o) && (this.hashCode() == o.hashCode())) {
             return 0;
         }
         else {

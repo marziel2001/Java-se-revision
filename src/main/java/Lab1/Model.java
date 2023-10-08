@@ -12,6 +12,7 @@ import lombok.*;
 
 public class Model implements Comparable<Model> {
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude // to avoid circular dependencies
     private Marka marka;
     private String nazwa;
     private Double cena;
@@ -19,7 +20,7 @@ public class Model implements Comparable<Model> {
 
     @Override
     public int compareTo(Model o) {
-        if(this.equals(o) && this.hashCode() == o.hashCode()) {
+        if(this.equals(o) && (this.hashCode() == o.hashCode())) {
             return 0;
         }
         else {

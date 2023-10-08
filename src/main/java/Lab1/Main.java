@@ -78,10 +78,16 @@ public class Main {
             x.getModele().forEach(System.out::println);
         });
 
+        System.out.println();
+
         //////////// ZADANIE 3 ////////////
 
-//        Set<Model> modele;
-        Stream<Model> stream = marki.values().stream().flatMap(marka -> marka.getModele().stream());
-        Set<Model> modele = stream.collect(Collectors.toSet());
+        Set<Model> wszystkieModele =
+            marki.values()
+            .stream()
+            .flatMap(x->x.getModele().stream())
+            .collect(Collectors.toSet());
+
+        wszystkieModele.stream().forEach(System.out::println);
     }
 }
