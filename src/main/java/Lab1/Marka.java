@@ -2,6 +2,7 @@ package Lab1;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 @Getter
@@ -12,7 +13,8 @@ import java.util.LinkedList;
 @AllArgsConstructor
 @Builder
 
-public class Marka implements Comparable<Marka> {
+
+public class Marka implements Comparable<Marka>, Serializable {
     private String nazwa;
     private Integer rokZalozenia;
     private String krajZalozenia;

@@ -2,6 +2,8 @@ package Lab1;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -10,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 
-public class Model implements Comparable<Model> {
+public class Model implements Comparable<Model>, Serializable {
     @EqualsAndHashCode.Exclude // to avoid circular dependencies
     private Marka marka;
     private String nazwa;

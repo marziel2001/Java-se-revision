@@ -1,5 +1,6 @@
 package Lab1;
 
+import java.io.*;
 import java.util.*;
 import java.util.stream.*;
 
@@ -70,9 +71,48 @@ public class Main {
 
         System.out.println();
         //////////// ZADANIE 6 ////////////
+        try {
+            OutputStream os = new FileOutputStream("./object.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(os);
 
+            for(Marka m : marki.values())
+            {
+                oos.writeObject(m);
+            }
+            oos.close();
 
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
+        Map<String, Marka> markiZPliku = new TreeMap<>();
 
+        try {
+            InputStream is = new FileInputStream("./object.txt");
+            ObjectInputStream ois = new ObjectInputStream(is);
+
+            Marka tmp = null;
+            while(true) {
+                try {
+                    tmp = (Marka)ois.readObject();
+                } catch (EOFException | ClassNotFoundException e) {
+                    break;
+                }
+                markiZPliku.put(tmp.getNazwa(), tmp);
+            }
+            ois.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Odczytano z pliku: ");
+
+        markiZPliku.values().forEach((x) -> {
+            System.out.println(x);
+            x.getModele().forEach(System.out::println);
+        });
     }
 }
