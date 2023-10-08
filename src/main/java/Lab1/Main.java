@@ -2,6 +2,8 @@ package Lab1;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
 import java.util.stream.*;
 
 public class Main {
@@ -25,10 +27,24 @@ public class Main {
         // wstawianie konkretnych modeli pod marki
         marki.get("Volkswagen").getModele().add(Model.builder().nazwa("Passat B5").cena(9000.00).rokWprowadzenia(1996).marka(marki.get("Volkswagen")).build());
         marki.get("Toyota").getModele().add(Model.builder().nazwa("Camry").cena(12000.00).rokWprowadzenia(1992).marka(marki.get("Toyota")).build());
+        marki.get("Toyota").getModele().add(Model.builder().nazwa("RAV4").cena(25000.00).rokWprowadzenia(1994).marka(marki.get("Toyota")).build());
+        marki.get("Toyota").getModele().add(Model.builder().nazwa("Prius").cena(18000.00).rokWprowadzenia(1997).marka(marki.get("Toyota")).build());
+        marki.get("Toyota").getModele().add(Model.builder().nazwa("Highlander").cena(30000.00).rokWprowadzenia(2001).marka(marki.get("Toyota")).build());
+        marki.get("Toyota").getModele().add(Model.builder().nazwa("Tacoma").cena(22000.00).rokWprowadzenia(1995).marka(marki.get("Toyota")).build());
         marki.get("Ford").getModele().add(Model.builder().nazwa("F-150").cena(32000.00).rokWprowadzenia(1948).marka(marki.get("Ford")).build());
         marki.get("Honda").getModele().add(Model.builder().nazwa("Civic").cena(8000.00).rokWprowadzenia(1972).marka(marki.get("Honda")).build());
-        marki.get("BMW").getModele().add(Model.builder().nazwa("3 Series").cena(15000.00).rokWprowadzenia(1975).marka(marki.get("BMW")).build());
-        marki.get("Mercedes-Benz").getModele().add(Model.builder().nazwa("E-Class").cena(22000.00).rokWprowadzenia(1953).marka(marki.get("Mercedes-Benz")).build());
+        marki.get("BMW").getModele().add(Model.builder().nazwa("X5").cena(25000.00).rokWprowadzenia(1999).marka(marki.get("BMW")).build());
+        marki.get("BMW").getModele().add(Model.builder().nazwa("7 Series").cena(40000.00).rokWprowadzenia(1977).marka(marki.get("BMW")).build());
+        marki.get("BMW").getModele().add(Model.builder().nazwa("Z4").cena(30000.00).rokWprowadzenia(2002).marka(marki.get("BMW")).build());
+        marki.get("BMW").getModele().add(Model.builder().nazwa("1 Series").cena(20000.00).rokWprowadzenia(2004).marka(marki.get("BMW")).build());
+        marki.get("BMW").getModele().add(Model.builder().nazwa("i3").cena(35000.00).rokWprowadzenia(2013).marka(marki.get("BMW")).build());
+        marki.get("BMW").getModele().add(Model.builder().nazwa("X3").cena(28000.00).rokWprowadzenia(2003).marka(marki.get("BMW")).build());
+        marki.get("BMW").getModele().add(Model.builder().nazwa("4 Series").cena(27000.00).rokWprowadzenia(2013).marka(marki.get("BMW")).build());
+        marki.get("Mercedes-Benz").getModele().add(Model.builder().nazwa("CLA").cena(28000.00).rokWprowadzenia(2013).marka(marki.get("Mercedes-Benz")).build());
+        marki.get("Mercedes-Benz").getModele().add(Model.builder().nazwa("S-Class").cena(40000.00).rokWprowadzenia(1972).marka(marki.get("Mercedes-Benz")).build());
+        marki.get("Mercedes-Benz").getModele().add(Model.builder().nazwa("GLC").cena(35000.00).rokWprowadzenia(2015).marka(marki.get("Mercedes-Benz")).build());
+        marki.get("Mercedes-Benz").getModele().add(Model.builder().nazwa("GLA").cena(32000.00).rokWprowadzenia(2013).marka(marki.get("Mercedes-Benz")).build());
+        marki.get("Mercedes-Benz").getModele().add(Model.builder().nazwa("A-Class").cena(25000.00).rokWprowadzenia(1997).marka(marki.get("Mercedes-Benz")).build());
         marki.get("Audi").getModele().add(Model.builder().nazwa("A4").cena(11000.00).rokWprowadzenia(1994).marka(marki.get("Audi")).build());
         marki.get("Chevrolet").getModele().add(Model.builder().nazwa("Silverado").cena(28000.00).rokWprowadzenia(1998).marka(marki.get("Chevrolet")).build());
         marki.get("Mazda").getModele().add(Model.builder().nazwa("CX-5").cena(15000.00).rokWprowadzenia(2012).marka(marki.get("Mazda")).build());
@@ -114,5 +130,34 @@ public class Main {
             System.out.println(x);
             x.getModele().forEach(System.out::println);
         });
+
+        System.out.println();
+        //////////// ZADANIE 7 ////////////
+
+        ForkJoinPool pool1 = new ForkJoinPool(4);
+
+        try {
+            pool1.submit(() -> {
+                marki.values().parallelStream()
+
+                    .filter(x -> x.getNazwa().equals("Mercedes-Benz") ||
+                                 x.getNazwa().equals("Toyota") ||
+                                 x.getNazwa().equals("BMW"))
+                    .flatMap(x->x.getModele().stream())
+
+                    .map(e -> {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ex) {
+                            Thread.currentThread().interrupt();
+                        }
+                        return e;
+                    })
+                    .forEach(System.out::println);
+            }).get();
+        }
+        catch (ExecutionException | InterruptedException e) {
+        }
+        pool1.shutdown();
     }
 }
