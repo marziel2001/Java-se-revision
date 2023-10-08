@@ -89,5 +89,10 @@ public class Main {
             .collect(Collectors.toSet());
 
         wszystkieModele.stream().forEach(System.out::println);
+        System.out.println();
+        //////////// ZADANIE 4 ////////////
+
+        wszystkieModele.stream().filter(x -> x.getNazwa().startsWith("A") || x.getNazwa().startsWith("C"))
+            .sorted((Comparator.comparing(Model::getCena)).reversed()).forEach(System.out::println);
     }
 }
