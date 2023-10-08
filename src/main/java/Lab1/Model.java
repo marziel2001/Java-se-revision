@@ -11,7 +11,6 @@ import lombok.*;
 @Builder
 
 public class Model implements Comparable<Model> {
-    @ToString.Exclude
     @EqualsAndHashCode.Exclude // to avoid circular dependencies
     private Marka marka;
     private String nazwa;

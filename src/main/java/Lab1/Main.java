@@ -6,43 +6,6 @@ import java.util.stream.*;
 public class Main {
     public static void main(String[] args) {
 
-        //////////// ZADANIE 1 ////////////
-
-        Marka vw = Marka.builder()
-            .nazwa("Volkswagen")
-            .krajZalozenia("Niemcy")
-            .wartosc(13716000000.00)
-            .rokZalozenia(1937)
-            .build();
-
-        Model passatB5 = Model.builder()
-            .nazwa("Passat B5")
-            .cena(9000.00)
-            .rokWprowadzenia(1996)
-            .marka(vw)
-            .build();
-
-//        Model passatB6 = Model.builder()
-//            .nazwa("Passat B5")
-//            .cena(9000.00)
-//            .rokWprowadzenia(1996)
-//            .marka(vw)
-//            .build();
-//
-//        ModelDto passatB5_Dto = ModelDto.builder()
-//            .nazwa(passatB5.getNazwa())
-//            .cena(passatB5.getCena())
-//            .rokWprowadzenia(passatB5.getRokWprowadzenia())
-//            .nazwaMarki(passatB5.getMarka().getNazwa())
-//            .build();
-//
-//        System.out.println(passatB5.toString());
-//        System.out.println("Dto" + passatB5_Dto.toString());
-//
-//        System.out.println("equals: " + passatB5.equals(passatB6));
-//        System.out.println("hashes: " + (passatB5.hashCode() == passatB6.hashCode()));
-//        System.out.println();
-
         //////////// ZADANIE 2 ////////////
 
         Map<String, Marka> marki = new TreeMap<>();
@@ -79,7 +42,6 @@ public class Main {
         });
 
         System.out.println();
-
         //////////// ZADANIE 3 ////////////
 
         Set<Model> wszystkieModele =
@@ -89,10 +51,28 @@ public class Main {
             .collect(Collectors.toSet());
 
         wszystkieModele.stream().forEach(System.out::println);
+
         System.out.println();
         //////////// ZADANIE 4 ////////////
 
         wszystkieModele.stream().filter(x -> x.getNazwa().startsWith("A") || x.getNazwa().startsWith("C"))
             .sorted((Comparator.comparing(Model::getCena)).reversed()).forEach(System.out::println);
+
+        System.out.println();
+        //////////// ZADANIE 5 ////////////
+
+        List<ModelDto> modeleDto = wszystkieModele.stream()
+            .map(m -> new ModelDto(m.getMarka().getNazwa(), m.getNazwa(), m.getCena(), m.getRokWprowadzenia()))
+            .sorted()
+            .toList();
+
+        modeleDto.forEach(System.out::println);
+
+        System.out.println();
+        //////////// ZADANIE 6 ////////////
+
+
+
+
     }
 }
