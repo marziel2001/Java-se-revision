@@ -7,10 +7,10 @@ import lombok.*;
 @Builder
 @Data
 public class ModelDto implements Comparable<ModelDto> {
-    private String nazwaMarki;
-    private String nazwa;
-    private Double cena;
-    private Integer rokWprowadzenia;
+    private String brandName;
+    private String name;
+    private Double price;
+    private Integer announceDate;
 
     @Override
     public int compareTo(ModelDto o) {
@@ -18,10 +18,10 @@ public class ModelDto implements Comparable<ModelDto> {
             return 0;
         }
         else {
-            int markaComparsionValue = this.nazwaMarki.toLowerCase().compareTo(o.nazwaMarki.toLowerCase());
+            int markaComparsionValue = this.brandName.toLowerCase().compareTo(o.brandName.toLowerCase());
 
             if(markaComparsionValue == 0) {
-                return this.nazwa.toLowerCase().compareTo(o.nazwa.toLowerCase());
+                return this.name.toLowerCase().compareTo(o.name.toLowerCase());
             }
             else return markaComparsionValue;
         }

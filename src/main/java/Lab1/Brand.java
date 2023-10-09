@@ -13,7 +13,7 @@ public class Brand implements Comparable<Brand>, Serializable {
     private String name;
     private Integer yearOfEst;
     private String country;
-    private Double brandValue;
+    private Double brandValueDollars;
     @ToString.Exclude
     public LinkedList<Model> models;
 

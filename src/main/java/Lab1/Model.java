@@ -12,7 +12,7 @@ public class Model implements Comparable<Model>, Serializable {
     private Brand brand;
     private String name;
     private Double price;
-    private Integer announceDate;
+    private Integer announceYear;
 
     @Override
     public int compareTo(Model o) {
