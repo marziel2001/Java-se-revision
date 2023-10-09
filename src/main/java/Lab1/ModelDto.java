@@ -2,14 +2,10 @@ package Lab1;
 
 import lombok.*;
 
-@Getter
-@Setter
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @Builder
-
+@Data
 public class ModelDto implements Comparable<ModelDto> {
     private String nazwaMarki;
     private String nazwa;

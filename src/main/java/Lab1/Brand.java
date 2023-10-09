@@ -1,21 +1,24 @@
 package Lab1;
 
 import lombok.*;
+
 import java.io.Serializable;
+import java.util.LinkedList;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
-public class Model implements Comparable<Model>, Serializable {
-    @EqualsAndHashCode.Exclude // to avoid circular dependencies
-    private Brand brand;
+public class Brand implements Comparable<Brand>, Serializable {
     private String name;
-    private Double price;
-    private Integer announceDate;
+    private Integer yearOfEst;
+    private String country;
+    private Double brandValue;
+    @ToString.Exclude
+    public LinkedList<Model> models;
 
     @Override
-    public int compareTo(Model o) {
+    public int compareTo(Brand o) {
         if(this.equals(o) && (this.hashCode() == o.hashCode())) {
             return 0;
         }
